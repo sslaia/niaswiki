@@ -43,7 +43,46 @@ class HomePage extends StatelessWidget {
                       builder: (BuildContext context) => AboutNiasWiki()),
                 );
               },
-            )
+            ),
+            PopupMenuButton(
+                icon: Icon(Icons.language_outlined),
+                color: Colors.white,
+                onSelected: (item) {
+                  switch (item) {
+                    case 0:
+                      context.setLocale(Locale('en'));
+                      break;
+                    case 1:
+                      context.setLocale(Locale('id'));
+                      break;
+                    // case 2:
+                    //   context.setLocale(Locale('nia'));
+                    //   break;
+                  }
+                },
+                itemBuilder: (context) => [
+                      PopupMenuItem<int>(
+                        value: 0,
+                        child: ListTile(
+                            leading: Icon(Icons.language_outlined,
+                                color: Colors.purple),
+                            title: Text('english').tr()),
+                      ),
+                      PopupMenuItem<int>(
+                        value: 1,
+                        child: ListTile(
+                            leading: Icon(Icons.language_outlined,
+                                color: Colors.orange),
+                            title: Text('indonesia').tr()),
+                      ),
+                      // PopupMenuItem<int>(
+                      //   value: 2,
+                      //   child: ListTile(
+                      //       leading:
+                      //           Icon(Icons.auto_stories, color: Colors.indigo),
+                      //       title: Text('nias').tr()),
+                      // ),
+                    ])
           ],
         ),
         body: Column(

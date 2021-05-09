@@ -24,5 +24,8 @@
   "app_task_heading": "Apa bisa dibuat dengan aplikasi ini",
   "app_task1": "Aplikasi ini dibuat terutama untuk menulis entri baru atau mengedit entri yang telah ada di Wiktionary, Wikipedia dan Wibibuku Li Niha. Kemudian ada satu lagi aplikasi yang lebih bertujuan memperdalam penggunaan bahasa Nias. Lihat aplikasi Bola-bola (https://github.com/sslaia/bola-bola).",
   "app_source": "Kode aplikasi ini tersedia di https://github.com/sslaia/niaswiki. Silakan menyumbang kode bagi penyempurnaan aplikasi ini di sana.",
-  "nias_greeting": "Ya'ahowu!"
+  "nias_greeting": "Ya'ahowu!",
+  "close_webview": "Awalisi ba mangawuli baulu?",
+  "no": "Lö'ö",
+  "yes": "Lau"
 }

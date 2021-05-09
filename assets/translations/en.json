@@ -25,7 +25,7 @@
   "app_task1": "The app is written with specific tasks in mind: creating new entry or editing existing entries in the Nias Wiktionary, Wikipedia and Wikibooks. If you are looking for an app that will help improving your Nias language, then the app Bola-bola (https://github.com/sslaia/bola-bola) could be a better choice. In addition there are also independent apps for Nias Wikipedia and Wikibooks.",
   "app_source": "See the source code of this app at https://github.com/sslaia/niaswiki. Each contribution matters.",
   "nias_greeting": "Ya'ahowu! Kind regards!",
-  "close_webview": "Close and back to the start page?",
+  "close_webview": "Close and go back to the start page?",
   "no": "No",
   "yes": "Yes"
 }

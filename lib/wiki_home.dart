@@ -31,7 +31,7 @@ class _WikiHomeState extends State<WikiHome> {
   final Completer<WebViewController> _controller =
       Completer<WebViewController>();
   final key = GlobalKey();
-  // String lang = 'English';
+  String? booksUrl;
 
   @override
   void initState() {
@@ -80,8 +80,15 @@ class _WikiHomeState extends State<WikiHome> {
                               color: Colors.black54,
                             ),
                             onPressed: () {
-                              controller.data!
-                                  .loadUrl(widget.url + 'Special:Random');
+                              if (widget.url.contains('Wb/nia')) {
+                                booksUrl =
+                                    'https://incubator.m.wikimedia.org/wiki/';
+                                controller.data!
+                                    .loadUrl(booksUrl! + 'Special:Random');
+                              } else {
+                                controller.data!
+                                    .loadUrl(widget.url + 'Special:Random');
+                              }
                             },
                           ),
                           PopupMenuButton<int>(

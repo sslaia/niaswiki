@@ -32,21 +32,21 @@ class HomePage extends StatelessWidget {
                     color: Colors.white70)),
           ),
           actions: [
-            IconButton(
-              icon: const Icon(
-                Icons.local_florist,
-                color: Colors.white70,
-              ),
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                      builder: (BuildContext context) => AboutNiasWiki()),
-                );
-              },
-            ),
+            // IconButton(
+            //   icon: const Icon(
+            //     Icons.local_florist,
+            //     // color: Colors.white70,
+            //   ),
+            //   onPressed: () {
+            //     Navigator.of(context).push(
+            //       MaterialPageRoute(
+            //           builder: (BuildContext context) => AboutNiasWiki()),
+            //     );
+            //   },
+            // ),
             PopupMenuButton(
-                icon: Icon(Icons.language_outlined),
-                color: Colors.white,
+                // icon: Icon(Icons.language_outlined),
+                // color: Colors.white,
                 onSelected: (item) {
                   switch (item) {
                     case 0:
@@ -58,6 +58,12 @@ class HomePage extends StatelessWidget {
                     // case 2:
                     //   context.setLocale(Locale('nia'));
                     //   break;
+                    case 3:
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (BuildContext context) => AboutNiasWiki()),
+                      );
+                      break;
                   }
                 },
                 itemBuilder: (context) => [
@@ -72,7 +78,7 @@ class HomePage extends StatelessWidget {
                         value: 1,
                         child: ListTile(
                             leading: Icon(Icons.language_outlined,
-                                color: Colors.orange),
+                                color: Colors.indigo),
                             title: Text('indonesia').tr()),
                       ),
                       // PopupMenuItem<int>(
@@ -82,6 +88,14 @@ class HomePage extends StatelessWidget {
                       //           Icon(Icons.auto_stories, color: Colors.indigo),
                       //       title: Text('nias').tr()),
                       // ),
+                      // PopupMenuDivider(),
+                      PopupMenuItem<int>(
+                          value: 3,
+                          child: ListTile(
+                            leading:
+                                Icon(Icons.info_outline, color: Colors.orange),
+                            title: Text('about').tr(),
+                          ))
                     ])
           ],
         ),

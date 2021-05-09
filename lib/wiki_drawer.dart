@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WikiDrawer extends StatelessWidget {
-  const WikiDrawer({
+  WikiDrawer({
     Key? key,
     required Completer<WebViewController> controller,
     required this.color,
@@ -19,6 +19,7 @@ class WikiDrawer extends StatelessWidget {
   final Color? color;
   final String url;
   final String title;
+  String? booksUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -66,16 +67,30 @@ class WikiDrawer extends StatelessWidget {
                     leading: Icon(Icons.local_fire_department_outlined),
                     title: Text("recent_changes").tr(),
                     onTap: () {
-                      Navigator.pop(context);
-                      controller.data!.loadUrl(url + 'Special:RecentChanges');
+                      if (url.contains('Wb/nia')) {
+                        booksUrl = 'https://incubator.m.wikimedia.org/wiki/';
+                        Navigator.pop(context);
+                        controller.data!
+                            .loadUrl(booksUrl! + 'Special:RecentChanges');
+                      } else {
+                        Navigator.pop(context);
+                        controller.data!.loadUrl(url + 'Special:RecentChanges');
+                      }
                     },
                   ),
                   ListTile(
                     leading: Icon(Icons.security_outlined),
                     title: Text("special_pages").tr(),
                     onTap: () {
-                      Navigator.pop(context);
-                      controller.data!.loadUrl(url + 'Special:SpecialPages');
+                      if (url.contains('Wb/nia')) {
+                        booksUrl = 'https://incubator.m.wikimedia.org/wiki/';
+                        Navigator.pop(context);
+                        controller.data!
+                            .loadUrl(booksUrl! + 'Special:SpecialPages');
+                      } else {
+                        Navigator.pop(context);
+                        controller.data!.loadUrl(url + 'Special:SpecialPages');
+                      }
                     },
                   ),
                   ListTile(
@@ -95,7 +110,7 @@ class WikiDrawer extends StatelessWidget {
                     },
                   ),
                   ListTile(
-                    leading: Icon(Icons.question_answer_outlined),
+                    leading: Icon(Icons.bubble_chart_outlined),
                     title: Text('village_pump').tr(),
                     onTap: () {
                       Navigator.pop(context);

@@ -64,35 +64,19 @@ class WikiDrawer extends StatelessWidget {
                     },
                   ),
                   ListTile(
-                    leading: Icon(Icons.local_fire_department_outlined),
-                    title: Text("recent_changes").tr(),
-                    onTap: () {
-                      if (url.contains('Wb/nia')) {
-                        booksUrl = 'https://incubator.m.wikimedia.org/wiki/';
-                        Navigator.pop(context);
-                        controller.data!
-                            .loadUrl(booksUrl! + 'Special:RecentChanges');
-                      } else {
+                      leading: Icon(Icons.local_fire_department_outlined),
+                      title: Text("recent_changes").tr(),
+                      onTap: () {
                         Navigator.pop(context);
                         controller.data!.loadUrl(url + 'Special:RecentChanges');
-                      }
-                    },
-                  ),
+                      }),
                   ListTile(
-                    leading: Icon(Icons.security_outlined),
-                    title: Text("special_pages").tr(),
-                    onTap: () {
-                      if (url.contains('Wb/nia')) {
-                        booksUrl = 'https://incubator.m.wikimedia.org/wiki/';
-                        Navigator.pop(context);
-                        controller.data!
-                            .loadUrl(booksUrl! + 'Special:SpecialPages');
-                      } else {
+                      leading: Icon(Icons.security_outlined),
+                      title: Text("special_pages").tr(),
+                      onTap: () {
                         Navigator.pop(context);
                         controller.data!.loadUrl(url + 'Special:SpecialPages');
-                      }
-                    },
-                  ),
+                      }),
                   ListTile(
                     leading: Icon(Icons.notifications),
                     title: Text('announcement').tr(),

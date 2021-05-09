@@ -80,15 +80,8 @@ class _WikiHomeState extends State<WikiHome> {
                               color: Colors.black54,
                             ),
                             onPressed: () {
-                              if (widget.url.contains('Wb/nia')) {
-                                booksUrl =
-                                    'https://incubator.m.wikimedia.org/wiki/';
-                                controller.data!
-                                    .loadUrl(booksUrl! + 'Special:Random');
-                              } else {
-                                controller.data!
-                                    .loadUrl(widget.url + 'Special:Random');
-                              }
+                              controller.data!
+                                  .loadUrl(widget.url + 'Special:Random');
                             },
                           ),
                           PopupMenuButton<int>(

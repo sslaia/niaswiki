@@ -1,7 +1,7 @@
 name: niaswiki
 description: An app for Nias Wikipedia, Wiktionary and Wikibooks
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 1.0.0+1
+version: 1.5.0+1
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
@@ -9,11 +9,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  webview_flutter: ^2.0.4
-  google_fonts: ^2.0.0
-  provider: ^5.0.0
-  shared_preferences: ^2.0.5
+  webview_flutter: ^2.1.1
+  google_fonts: ^2.1.0
+  provider: ^6.0.1
+  shared_preferences: ^2.0.8
   easy_localization: ^3.0.0
+  connectivity_plus: 1.4.0
+  internet_connection_checker: ^0.0.1+2
 
 dev_dependencies:
   flutter_test:
@@ -23,6 +25,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+    - assets/icons/
     - assets/images/
     - assets/translations/en.json
     - assets/translations/id.json

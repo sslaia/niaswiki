@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:niaswiki/home_page.dart';
+import 'package:niaswiki/wiki_home.dart';
 import 'package:niaswiki/wiki_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -31,7 +31,7 @@ class NiasWiki extends StatelessWidget {
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         locale: context.locale,
-        home: HomePage(),
+        home: WikiHome(),
       ),
     );
   }

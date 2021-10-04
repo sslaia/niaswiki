@@ -27,5 +27,9 @@
   "nias_greeting": "Ya'ahowu!",
   "close_webview": "Awalisi ba angawuli baulu?",
   "no": "Lö'ö",
-  "yes": "Lau"
+  "yes": "Lau",
+  "random": "Gofu nga'örö",
+  "refresh": "Fuli halö",
+  "no_internet": "Lö u'ila uhalö nga'örö andrö. \nLö amakhaita ba Internet."
+
 }

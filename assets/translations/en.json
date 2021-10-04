@@ -27,5 +27,8 @@
   "nias_greeting": "Ya'ahowu! Kind regards!",
   "close_webview": "Close and go back to the start page?",
   "no": "No",
-  "yes": "Yes"
+  "yes": "Yes",
+  "random": "Random page",
+  "refresh": "Refresh",
+  "no_internet": "Sorry, I can't get the page you wanted. \nThere's no internet connection."
 }

@@ -2,12 +2,17 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:niaswiki/about.dart';
-import 'package:niaswiki/wiki_home.dart';
 
-class HomePage extends StatelessWidget {
-  Color? color;
-  String url = '';
-  String title = '';
+class HomePage extends StatefulWidget {
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  Color? color = Colors.indigo[50];
+  String url = 'https://nia.m.wikipedia.org/wiki/';
+  String title = 'Wikipedia Nias';
 
   @override
   Widget build(BuildContext context) {
@@ -135,11 +140,11 @@ class HomePage extends StatelessWidget {
                       color = Colors.purple[50];
                       url = 'https://incubator.m.wikimedia.org/wiki/Wb/nia/';
                       title = 'Wikibooks';
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                WikiHome(color: color, url: url, title: title)),
-                      );
+                      // Navigator.of(context).push(
+                      //   MaterialPageRoute(
+                      //       builder: (BuildContext context) =>
+                      //           WikiHome(color: color, url: url, title: title)),
+                      // );
                     },
                   ),
                   TextButton(
@@ -156,11 +161,11 @@ class HomePage extends StatelessWidget {
                       color = Colors.indigo[50];
                       url = 'https://nia.m.wikipedia.org/wiki/';
                       title = 'Wikipedia';
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                WikiHome(color: color, url: url, title: title)),
-                      );
+                      // Navigator.of(context).push(
+                      //   MaterialPageRoute(
+                      //       builder: (BuildContext context) =>
+                      //           WikiHome(color: color, url: url, title: title)),
+                      // );
                     },
                   ),
                   TextButton(
@@ -177,11 +182,11 @@ class HomePage extends StatelessWidget {
                       color = Colors.orange[50];
                       url = 'https://nia.m.wiktionary.org/wiki/';
                       title = 'Wiktionary';
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                WikiHome(color: color, url: url, title: title)),
-                      );
+                      // Navigator.of(context).push(
+                      //   MaterialPageRoute(
+                      //       builder: (BuildContext context) =>
+                      //           WikiHome(color: color, url: url, title: title)),
+                      // );
                     },
                   ),
                   Text(

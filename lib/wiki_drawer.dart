@@ -9,17 +9,19 @@ class WikiDrawer extends StatelessWidget {
   WikiDrawer({
     Key? key,
     required Completer<WebViewController> controller,
-    required this.color,
+    // required this.color,
     required this.url,
-    required this.title,
+    required this.project,
+    // required this.title,
   })   : _controller = controller,
         super(key: key);
 
   final Completer<WebViewController> _controller;
-  final Color? color;
+  // final Color? color;
   final String url;
-  final String title;
-  String? booksUrl;
+  final String project;
+  // final String title;
+  // String? booksUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class WikiDrawer extends StatelessWidget {
             AsyncSnapshot<WebViewController> controller) {
           if (controller.hasData) {
             return Container(
-              color: color,
+              // color: color,
               child: ListView(
                 children: [
                   DrawerHeader(
@@ -55,14 +57,14 @@ class WikiDrawer extends StatelessWidget {
                       ),
                     ]),
                   ),
-                  ListTile(
-                    leading: Icon(Icons.home_outlined),
-                    title: Text('home').tr(),
-                    onTap: () {
-                      Navigator.pop(context);
-                      controller.data!.loadUrl(url + 'Olayama');
-                    },
-                  ),
+                  // ListTile(
+                  //   leading: Icon(Icons.home_outlined),
+                  //   title: Text('home').tr(),
+                  //   onTap: () {
+                  //     Navigator.pop(context);
+                  //     controller.data!.loadUrl(url + 'Olayama');
+                  //   },
+                  // ),
                   ListTile(
                       leading: Icon(Icons.local_fire_department_outlined),
                       title: Text("recent_changes").tr(),
@@ -82,7 +84,7 @@ class WikiDrawer extends StatelessWidget {
                     title: Text('announcement').tr(),
                     onTap: () {
                       Navigator.pop(context);
-                      controller.data!.loadUrl(url + title + ':Angombakhata');
+                      controller.data!.loadUrl(url + project + ':Angombakhata');
                     },
                   ),
                   ListTile(
@@ -90,7 +92,7 @@ class WikiDrawer extends StatelessWidget {
                     title: Text('community_portal').tr(),
                     onTap: () {
                       Navigator.pop(context);
-                      controller.data!.loadUrl(url + title + ':Bawagöli_zato');
+                      controller.data!.loadUrl(url + project + ':Bawagöli_zato');
                     },
                   ),
                   ListTile(
@@ -98,7 +100,7 @@ class WikiDrawer extends StatelessWidget {
                     title: Text('village_pump').tr(),
                     onTap: () {
                       Navigator.pop(context);
-                      controller.data!.loadUrl(url + title + ':Monganga_afo');
+                      controller.data!.loadUrl(url + project + ':Monganga_afo');
                     },
                   ),
                   ListTile(
@@ -106,7 +108,7 @@ class WikiDrawer extends StatelessWidget {
                     title: Text('sandbox').tr(),
                     onTap: () {
                       Navigator.pop(context);
-                      controller.data!.loadUrl(url + title + ':Nahia_wamakori');
+                      controller.data!.loadUrl(url + project + ':Nahia_wamakori');
                     },
                   ),
                   ListTile(
@@ -114,7 +116,7 @@ class WikiDrawer extends StatelessWidget {
                     title: Text('help').tr(),
                     onTap: () {
                       Navigator.pop(context);
-                      controller.data!.loadUrl(url + title + ':Fanolo');
+                      controller.data!.loadUrl(url + project + ':Fanolo');
                     },
                   ),
                   ListTile(
@@ -122,7 +124,7 @@ class WikiDrawer extends StatelessWidget {
                     title: Text('helpers').tr(),
                     onTap: () {
                       Navigator.pop(context);
-                      controller.data!.loadUrl(url + title + ':Sangai_halöŵö');
+                      controller.data!.loadUrl(url + project + ':Sangai_halöŵö');
                     },
                   ),
                   ListTile(
@@ -130,7 +132,7 @@ class WikiDrawer extends StatelessWidget {
                     title: Text('about').tr(),
                     onTap: () {
                       Navigator.pop(context);
-                      controller.data!.loadUrl(url + title + ':Sanandrösa');
+                      controller.data!.loadUrl(url + project + ':Sanandrösa');
                     },
                   ),
                 ],

@@ -4,6 +4,8 @@ import 'dart:io' as IO;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:niaswiki/about.dart';
 import 'package:niaswiki/home_page.dart';
 import 'package:niaswiki/wiki_drawer.dart';
 import 'package:niaswiki/wiki_provider.dart';
@@ -11,16 +13,7 @@ import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WikiHome extends StatefulWidget {
-  String title;
-  String url;
-  Color? color;
-
-  WikiHome({
-    Key? key,
-    required this.title,
-    required this.url,
-    required this.color,
-  }) : super(key: key);
+  WikiHome({Key? key}) : super(key: key);
 
   @override
   _WikiHomeState createState() => _WikiHomeState();
@@ -30,13 +23,39 @@ class _WikiHomeState extends State<WikiHome> {
   WebViewController? controller;
   final Completer<WebViewController> _controller =
       Completer<WebViewController>();
-  final key = GlobalKey();
-  String? booksUrl;
+  // String? booksUrl;
+  final _webviewKey = GlobalKey();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final String wbUrl = 'https://incubator.m.wikimedia.org/wiki/Wb/nia/';
+  final String wpUrl = 'https://nia.m.wikipedia.org/wiki/';
+  final String wtUrl = 'https://nia.m.wiktionary.org/wiki/';
+  final wbcolor = Colors.purple[50];
+  final wpcolor = Colors.indigo[50];
+  final wtcolor = Colors.orange[50];
+
+  String project = 'Wikipedia';
+  String baseUrl = 'https://nia.m.wikipedia.org/wiki/';
+  Color? bColor = Color(0xff121298);
+  Color? iColor = Colors.white;
+  double progress = 0; // for showing the progress bar
+
+  bool hasInternet = false;
+  final SnackBar _noInternet = SnackBar(
+    content: const Text('no_internet').tr(),
+    duration: const Duration(seconds: 3),
+    backgroundColor: Colors.red,
+  );
 
   @override
   void initState() {
     if (IO.Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+    _checkInternet();
     super.initState();
+  }
+
+  void _checkInternet() async {
+    // check internet connection first
+    hasInternet = await InternetConnectionChecker().hasConnection;
   }
 
   @override
@@ -46,183 +65,206 @@ class _WikiHomeState extends State<WikiHome> {
         onWillPop: () => _onWillPop(context),
         child: SafeArea(
           child: Scaffold(
-            appBar: AppBar(
-              iconTheme: IconThemeData(color: Colors.black54),
-              backgroundColor: widget.color,
-              title: Text(
-                widget.title,
-                style: GoogleFonts.cinzelDecorative(
-                    textStyle: TextStyle(
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black54)),
-              ),
-              actions: [
-                FutureBuilder<WebViewController>(
-                  future: _controller.future,
-                  builder: (BuildContext context,
-                      AsyncSnapshot<WebViewController> controller) {
-                    if (controller.hasData) {
-                      return Row(
-                        children: [
-                          IconButton(
-                            icon: const Icon(
-                              Icons.refresh,
-                              color: Colors.black54,
-                            ),
-                            onPressed: () {
-                              controller.data!.reload();
-                            },
-                          ),
-                          IconButton(
-                            icon: const Icon(
-                              Icons.shuffle_outlined,
-                              color: Colors.black54,
-                            ),
-                            onPressed: () {
-                              controller.data!
-                                  .loadUrl(widget.url + 'Special:Random');
-                            },
-                          ),
-                          PopupMenuButton<int>(
-                            color: Colors.white,
-                            onSelected: (item) {
-                              switch (item) {
-                                case 0:
-                                  wikiNotifier.setWiki('Wikibooks');
-                                  widget.title = 'Wikibooks';
-                                  widget.url =
-                                      'https://incubator.m.wikimedia.org/wiki/Wb/nia/';
-                                  controller.data!
-                                      .loadUrl(widget.url + 'Olayama');
-                                  setState(() {
-                                    widget.color = Colors.purple[50];
-                                  });
-                                  break;
-                                case 1:
-                                  wikiNotifier.setWiki('Wikipedia');
-                                  widget.title = 'Wikipedia';
-                                  widget.url =
-                                      'https://nia.m.wikipedia.org/wiki/';
-                                  controller.data!
-                                      .loadUrl(widget.url + 'Olayama');
-                                  setState(() {
-                                    widget.color = Colors.indigo[50];
-                                  });
-                                  break;
-                                case 2:
-                                  wikiNotifier.setWiki('Wiktionary');
-                                  widget.title = 'Wiktionary';
-                                  widget.url =
-                                      'https://nia.m.wiktionary.org/wiki/';
-                                  controller.data!
-                                      .loadUrl(widget.url + 'Olayama');
-                                  setState(() {
-                                    widget.color = Colors.orange[50];
-                                  });
-                                  break;
-                                case 3:
-                                  setState(() {
-                                    context.setLocale(Locale('en'));
-                                  });
-                                  break;
-                                case 4:
-                                  setState(() {
-                                    context.setLocale(Locale('id'));
-                                  });
-                                  break;
-                                // case 5:
-                                //   lang = 'Nias';
-                                //   break;
-                                case 6:
-                                  Navigator.of(context).pushAndRemoveUntil(
-                                      MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                            HomePage(),
-                                      ),
-                                      (route) => false);
-                              }
-                            },
-                            itemBuilder: (context) => [
-                              PopupMenuItem<int>(
-                                value: 0,
-                                child: ListTile(
-                                    leading: Icon(Icons.auto_stories,
-                                        color: Colors.purple),
-                                    title: Text('wikibooks').tr()),
-                              ),
-                              const PopupMenuItem<int>(
-                                value: 1,
-                                child: ListTile(
-                                    leading: Icon(Icons.auto_stories,
-                                        color: Colors.indigo),
-                                    title: Text('Wikipedia')),
-                              ),
-                              const PopupMenuItem<int>(
-                                value: 2,
-                                child: ListTile(
-                                    leading: Icon(Icons.auto_stories,
-                                        color: Colors.orange),
-                                    title: Text('Wiktionary')),
-                              ),
-                              const PopupMenuDivider(),
-                              PopupMenuItem<int>(
-                                value: 3,
-                                child: ListTile(
-                                    leading: Icon(Icons.language_outlined,
-                                        color: Colors.purple),
-                                    title: Text('english').tr()),
-                              ),
-                              PopupMenuItem<int>(
-                                value: 4,
-                                child: ListTile(
-                                    leading: Icon(Icons.language_outlined,
-                                        color: Colors.indigo),
-                                    title: Text('indonesia').tr()),
-                              ),
-                              // PopupMenuItem<int>(
-                              //   value: 5,
-                              //   child: ListTile(
-                              //       leading: Icon(Icons.language_outlined,
-                              //           color: Colors.orange),
-                              //       title: Text('Nias')),
-                              // ),
-                              const PopupMenuDivider(),
-                              PopupMenuItem<int>(
-                                value: 6,
-                                child: ListTile(
-                                    leading: Icon(Icons.logout,
-                                        color: Colors.purple),
-                                    title: Text('start_screen').tr()),
-                              ),
-                            ],
-                          )
-                        ],
-                      );
-                    }
-                    return Container();
-                  },
-                )
-              ],
-            ),
+            key: _scaffoldKey,
             drawer: WikiDrawer(
-                controller: _controller,
-                color: widget.color,
-                url: widget.url,
-                title: widget.title),
-            body: WebView(
-              key: key,
-              initialUrl: widget.url + 'Olayama',
-              javascriptMode: JavascriptMode.unrestricted,
-              onWebViewCreated: (WebViewController webViewController) {
-                _controller.future.then((value) => controller = value);
-                _controller.complete(webViewController);
-              },
+              controller: _controller,
+              // color: bColor,
+              url: baseUrl,
+              project: project,
+              // title: widget.title
+            ),
+            bottomNavigationBar: BottomAppBar(
+              // key: _scaffoldKey,
+              color: bColor,
+              child: Row(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      setState(() {
+                        // open the menu drawer
+                        _scaffoldKey.currentState?.openDrawer();
+                      });
+                    },
+                    icon: Icon(Icons.menu, color: iColor),
+                  ),
+                  SizedBox(width: 12.0),
+                  Text(
+                    'Nias Wiki',
+                    style: GoogleFonts.cinzelDecorative(
+                      textStyle: TextStyle(
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  Spacer(),
+                  IconButton(
+                    onPressed: () async {
+                      hasInternet =
+                          await InternetConnectionChecker().hasConnection;
+                      // reload the initial page
+                      hasInternet
+                          ? controller?.loadUrl(wpUrl + 'Olayama')
+                          : ScaffoldMessenger.of(context)
+                              .showSnackBar(_noInternet);
+                      setState(() {
+                        baseUrl = 'https://nia.m.wikipedia.org/wiki/';
+                        project = 'Wikipedia';
+                        bColor = Color(0xff121298);
+                      });
+                    },
+                    icon: Image.asset('assets/icons/action_wp.png'),
+                    tooltip: 'Wikipedia',
+                  ),
+                  IconButton(
+                    onPressed: () async {
+                      // reload the initial page
+                      hasInternet =
+                          await InternetConnectionChecker().hasConnection;
+                      hasInternet
+                          ? controller?.loadUrl(wtUrl + 'Olayama')
+                          : ScaffoldMessenger.of(context)
+                              .showSnackBar(_noInternet);
+                      setState(() {
+                        baseUrl = 'https://nia.m.wiktionary.org/wiki/';
+                        project = 'Wiktionary';
+                        bColor = Color(0xffe9d6ae);
+                      });
+                    },
+                    icon: Image.asset('assets/icons/action_wt.png'),
+                    tooltip: 'Wiktionary',
+                  ),
+                  IconButton(
+                    onPressed: () async {
+                      // reload the initial page
+                      hasInternet =
+                          await InternetConnectionChecker().hasConnection;
+                      hasInternet
+                          ? controller?.loadUrl(wbUrl + 'Olayama')
+                          : ScaffoldMessenger.of(context)
+                              .showSnackBar(_noInternet);
+                      setState(() {
+                        baseUrl =
+                            'https://incubator.m.wikimedia.org/wiki/Wb/nia/';
+                        project = 'Wikibooks';
+                        bColor = Color(0xff9b00a1);
+                      });
+                    },
+                    icon: Image.asset('assets/icons/action_wb.png'),
+                    tooltip: 'Wikibuku',
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      // to show settings menu using RelativeReact for position
+                      showMenu(
+                          context: context,
+                          position: const RelativeRect.fromLTRB(
+                              1000.0, 1000.0, 0.0, 0.0),
+                          items: <PopupMenuItem<String>>[
+                            PopupMenuItem<String>(
+                              child: ListTile(
+                                leading: const Icon(Icons.language_outlined,
+                                    color: Colors.purple),
+                                title: const Text('about').tr(),
+                                onTap: () {
+                                  Navigator.pop(context);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => AboutNiasWiki(),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                            PopupMenuItem<String>(
+                              child: ListTile(
+                                leading: const Icon(Icons.language_outlined,
+                                    color: Colors.purple),
+                                title: const Text('In English'),
+                                onTap: () {
+                                  setState(() {
+                                    context.setLocale(const Locale('en'));
+                                    Navigator.pop(context);
+                                  });
+                                },
+                              ),
+                            ),
+                            PopupMenuItem<String>(
+                              child: ListTile(
+                                leading: const Icon(Icons.language_outlined,
+                                    color: Colors.indigo),
+                                title: const Text('Ba Li Niha'),
+                                onTap: () {
+                                  setState(() {
+                                    context.setLocale(const Locale('id'));
+                                    Navigator.pop(context);
+                                  });
+                                },
+                              ),
+                            ),
+                            PopupMenuItem<String>(
+                              // value: 'english',
+                              child: ListTile(
+                                leading: const Icon(Icons.shuffle,
+                                    color: Colors.black54),
+                                title: const Text('random').tr(),
+                                onTap: () {
+                                  controller
+                                      ?.loadUrl(baseUrl + 'Special:Random');
+                                  setState(() {
+                                    Navigator.pop(context);
+                                  });
+                                },
+                              ),
+                            ),
+                            PopupMenuItem<String>(
+                              // value: 'english',
+                              child: ListTile(
+                                leading: const Icon(Icons.refresh,
+                                    color: Colors.black54),
+                                title: const Text('refresh').tr(),
+                                onTap: () {
+                                  controller?.reload();
+                                  setState(() {
+                                    Navigator.pop(context);
+                                  });
+                                },
+                              ),
+                            ),
+                          ]);
+                    },
+                    icon: Icon(Icons.more_vert, color: iColor),
+                  ),
+                ],
+              ),
+            ),
+            body: Column(
+              children: [
+                LinearProgressIndicator(
+                  value: progress,
+                  color: bColor,
+                  backgroundColor: Colors.white54,
+                ),
+                Expanded(
+                  child: WebView(
+                      key: _webviewKey,
+                      initialUrl: baseUrl + 'Olayama',
+                      javascriptMode: JavascriptMode.unrestricted,
+                      onWebViewCreated: (WebViewController webViewController) {
+                        _controller.future.then((value) => controller = value);
+                        _controller.complete(webViewController);
+                      },
+                      onProgress: (progress) => this.progress = progress / 100),
+                ),
+              ],
             ),
           ),
         ),
       ),
     );
+    // );
   }
 
   Future<bool> _onWillPop(BuildContext context) async {

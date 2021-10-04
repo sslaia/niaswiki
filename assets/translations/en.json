@@ -30,5 +30,6 @@
   "yes": "Yes",
   "random": "Random page",
   "refresh": "Refresh",
-  "no_internet": "Sorry, I can't get the page you wanted. \nThere's no internet connection."
+  "no_internet": "Sorry, I can't get the page you wanted. \nThere's no internet connection.",
+  "no_back": "No more pages. \nYou've reached the very first visited page"
 }

@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:niaswiki/about.dart';
-import 'package:niaswiki/home_page.dart';
 import 'package:niaswiki/wiki_drawer.dart';
 import 'package:niaswiki/wiki_provider.dart';
 import 'package:provider/provider.dart';
@@ -273,31 +272,14 @@ class _WikiHomeState extends State<WikiHome> {
       controller!.goBack();
       return false;
     } else {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text('close_webview').tr(),
-          actions: [
-            TextButton(
-              onPressed: () {
-                // controller!.reload();
-                Navigator.of(context).pop();
-              },
-              child: Text('no').tr(),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pushAndRemoveUntil<dynamic>(
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => HomePage()),
-                    (Route<dynamic> route) => false);
-              },
-              child: Text('yes').tr(),
-            ),
-          ],
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text(
+              "no_back").tr(),
+          duration: const Duration(seconds: 3),
         ),
       );
-      return true;
+      return false;
     }
   }
 }

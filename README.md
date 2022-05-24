@@ -1,5 +1,15 @@
 # niaswiki
 
+
+## Attention
+
+Due to keystore conflict this app has been deprecated. The new app is now called wikinias (Wiki Nias). The new repository is at https://github.com/sslaia/wikinias
+
+Thanks.
+
+
+
+
 An app for Nias Wikipedia, Wiktionary and Wikibooks. Get it from Play Store:
 
 <a href="https://play.google.com/store/apps/details?id=com.blogspot.niaswiki"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/apps/en-play-badge.png" height="80pt"/></a>
